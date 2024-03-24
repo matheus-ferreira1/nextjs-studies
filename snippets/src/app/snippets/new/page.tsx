@@ -1,10 +1,11 @@
+import { redirect } from 'next/navigation';
+
 import { db } from '@/db';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { redirect } from 'next/navigation';
 
 export default function SnippetCreatePage() {
   async function createSnippet(formData: FormData) {
