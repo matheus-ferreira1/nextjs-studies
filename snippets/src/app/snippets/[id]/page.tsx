@@ -2,8 +2,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { db } from '@/db';
+import { deleteSnippet } from '@/actions';
 
-import { buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 
 interface SnippetShowPageProps {
   params: {
@@ -22,6 +23,8 @@ export default async function SnippetShowPage({
 
   if (!snippet) notFound();
 
+  const deleteSnippetAction = deleteSnippet.bind(null, snippet.id);
+
   return (
     <div>
       <Link href="/" className="font-bold text-lg py-4">
@@ -29,19 +32,16 @@ export default async function SnippetShowPage({
       </Link>
       <div className="my-4 flex items-center justify-between">
         <h1 className="font-bold text-lg">{snippet.title}</h1>
-        <div className="space-x-2">
+        <div className="flex justify-between items-center space-x-2">
           <Link
             className={buttonVariants({ variant: 'outline' })}
             href={`/snippets/${snippet.id}/edit`}
           >
             Edit
           </Link>
-          <Link
-            className={buttonVariants({ variant: 'outline' })}
-            href={`/snippets/${snippet.id}/delete`}
-          >
-            Delete
-          </Link>
+          <form action={deleteSnippetAction}>
+            <Button variant="destructive">Delete</Button>
+          </form>
         </div>
       </div>
       <pre className="bg-gray-200 p-3 rounded">
