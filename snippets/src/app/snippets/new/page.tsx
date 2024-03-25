@@ -21,8 +21,6 @@ export default function SnippetCreatePage() {
       },
     });
 
-    console.log(snippet);
-
     redirect('/');
   }
 
